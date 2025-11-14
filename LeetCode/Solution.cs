@@ -122,6 +122,8 @@ internal class Solution
 			if (!added) frequences[num]++;
 		}
 
+		// Soring The Dict
+		/*
 		var sorted = frequences
 			.OrderByDescending(x => x.Value)
 			.ToArray();
@@ -132,6 +134,35 @@ internal class Solution
 			result[i] = sorted[i].Key;
 		
 		return result;
+		*/
+
+		var result = new int[k];
+
+		List<int>[] arr = new List<int>[nums.Length + 1];
+
+		foreach (var (key, value) in frequences)
+		{
+			if (arr[value] is null) arr[value] = [key];
+			else arr[value].Add(key);
+		}
+
+		var addedToResult = 0;
+		for (int i = arr.Length - 1; i >= 0; i--)
+		{
+			if (arr[i] is null) continue;
+
+			foreach (var item in arr[i])
+			{
+				if (addedToResult == k) return result;
+
+				result[addedToResult] = item;
+				addedToResult += 1;
+			}
+
+		}
+
+		return result;
+
 	}
 
 	#endregion
