@@ -107,4 +107,32 @@ internal class Solution
 
 	#endregion
 
+	#region 347. Top K Frequent Elements
+
+	public static int[] TopKFrequent(int[] nums, int k)
+	{
+
+		if (nums.Length == 1) return nums;
+
+		var frequences = new Dictionary<int, int>();
+
+		foreach (var num in nums)
+		{
+			var added = frequences.TryAdd(num, 1);
+			if (!added) frequences[num]++;
+		}
+
+		var sorted = frequences
+			.OrderByDescending(x => x.Value)
+			.ToArray();
+
+		var result = new int[k];
+
+		for (int i = 0; i < k; i++)
+			result[i] = sorted[i].Key;
+		
+		return result;
+	}
+
+	#endregion
 }
