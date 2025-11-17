@@ -1,4 +1,6 @@
-﻿namespace LeetCode;
+﻿using System.Text;
+
+namespace LeetCode;
 
 internal class Solution
 {
@@ -166,4 +168,48 @@ internal class Solution
 	}
 
 	#endregion
+
+	#region 271. Encode and Decode Strings
+
+	public static string Encode(IList<string> strs)
+	{
+		var sb = new StringBuilder();
+		foreach (var str in strs)
+			sb.Append($"{str.Length}:{str}");
+		return sb.ToString();
+	}
+
+	public static List<string> Decode(string s)
+	{
+		var lenStr = new StringBuilder();
+		var result = new List<string>();
+
+		for (int i = 0; i < s.Length; i++)
+		{
+			if (s[i] != ':') lenStr.Append(s[i]);
+			else
+			{
+				var currStrChars = new List<char>();
+
+				var len = int.Parse(lenStr.ToString());
+				var currIndex = i + 1;
+				var limit = currIndex + len;
+				while (currIndex < limit)
+				{
+					if (currIndex == limit) break;
+					currStrChars.Add(s[currIndex]);
+					currIndex++;
+				}
+
+				var currStr = string.Concat(currStrChars);
+				result.Add(currStr);
+				lenStr.Clear();
+				i = currIndex - 1;
+			}
+		}
+
+		return result;
+	}
+	#endregion
+
 }
