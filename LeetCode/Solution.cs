@@ -186,30 +186,33 @@ internal class Solution
 
 		for (int i = 0; i < s.Length; i++)
 		{
-			if (s[i] != ':') lenStr.Append(s[i]);
-			else
+			if (s[i] != ':')
 			{
-				var currStrChars = new List<char>();
-
-				var len = int.Parse(lenStr.ToString());
-				var currIndex = i + 1;
-				var limit = currIndex + len;
-				while (currIndex < limit)
-				{
-					if (currIndex == limit) break;
-					currStrChars.Add(s[currIndex]);
-					currIndex++;
-				}
-
-				var currStr = string.Concat(currStrChars);
-				result.Add(currStr);
-				lenStr.Clear();
-				i = currIndex - 1;
+				lenStr.Append(s[i]);
+				continue;
 			}
+
+			var currStrChars = new List<char>();
+
+			var len = int.Parse(lenStr.ToString());
+			var currIndex = i + 1;
+			var limit = currIndex + len;
+			while (currIndex < limit)
+			{
+				if (currIndex == limit) break;
+				currStrChars.Add(s[currIndex]);
+				currIndex++;
+			}
+
+			var currStr = string.Concat(currStrChars);
+			result.Add(currStr);
+			lenStr.Clear();
+			i = currIndex - 1;
 		}
 
 		return result;
 	}
+
 	#endregion
 
 }
