@@ -41,3 +41,14 @@ AND u.purchase_date >= p.start_date
 AND u.purchase_date <= p.end_date
 GROUP BY p.product_id
 */
+
+-- 1075. Project Employees I
+/*
+SELECT
+	p.project_id,
+	ROUND(SUM(e.experience_years) * 1.0 / COUNT(*), 2) AS average_years
+FROM Employee AS e
+INNER JOIN Project AS p
+ON e.employee_id = p.employee_id
+GROUP BY p.project_id
+*/
