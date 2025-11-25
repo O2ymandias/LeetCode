@@ -83,3 +83,19 @@ SELECT
 FROM Queries
 GROUP BY query_name
 */
+
+-- 1070. Product Sales Analysis III
+/*
+SELECT
+	product_id,
+	first_year,
+	quantity,
+	price
+FROM (
+	SELECT
+		*,
+		MIN(year) OVER(PARTITION BY product_id) AS first_year
+	FROM Sales
+) AS t
+WHERE year = first_year
+*/
