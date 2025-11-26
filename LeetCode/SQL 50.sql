@@ -99,3 +99,23 @@ FROM (
 ) AS t
 WHERE year = first_year
 */
+
+-- 1174. Immediate Food Delivery II
+/*
+SELECT
+	ROUND(
+		SUM(CASE WHEN order_date = customer_pref_delivery_date THEN 1 END)
+		/ CAST(COUNT(*) AS FLOAT)
+		* 100,
+		2) AS immediate_percentage
+FROM (
+	SELECT
+		*,
+		ROW_NUMBER() OVER(
+			PARTITION BY customer_id
+			ORDER BY order_date
+			) AS [Rank]
+	FROM Delivery
+) AS t
+WHERE [Rank] = 1
+*/
