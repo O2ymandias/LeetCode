@@ -119,3 +119,24 @@ FROM (
 ) AS t
 WHERE [Rank] = 1
 */
+
+-- 550. Game Play Analysis IV
+/*
+SELECT
+	ROUND(COUNT(date_diff) / CAST(COUNT(DISTINCT player_id) AS FLOAT), 2) AS fraction
+FROM (
+	SELECT
+		player_id,
+		CASE 
+            WHEN 
+                DATEDIFF(
+                    DAY,
+                    event_date,
+                    LEAD(event_date) OVER(PARTITION BY player_id ORDER BY event_date)
+                ) = 1
+                AND ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) = 1
+			THEN 1
+        END AS [date_diff]
+	FROM Activity
+) AS t
+*/
