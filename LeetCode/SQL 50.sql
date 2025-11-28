@@ -148,3 +148,12 @@ FROM courses
 GROUP BY class
 HAVING COUNT(class) >= 5 
 */
+
+-- 1729. Find Followers Count
+/*
+SELECT 
+	user_id,
+	COUNT(follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id 
+*/
