@@ -157,3 +157,11 @@ SELECT
 FROM Followers
 GROUP BY user_id 
 */
+
+-- 619. Biggest Single Number
+/*
+SELECT TOP(1) CASE WHEN COUNT(num) = 1 THEN num ELSE NULL END AS num
+FROM MyNumbers
+GROUP BY num
+ORDER BY num DESC
+*/
