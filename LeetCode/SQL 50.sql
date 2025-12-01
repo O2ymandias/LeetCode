@@ -173,3 +173,21 @@ FROM Customer
 GROUP BY customer_id
 HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product)
 */
+
+-- 1789. Primary Department for Each Employee
+/*
+SELECT
+	employee_id,
+	department_id
+FROM (
+	SELECT
+		employee_id,
+		department_id,
+		CASE 
+			WHEN COUNT(*) OVER(PARTITION BY employee_id) = 1 THEN 'Y'
+			ELSE primary_flag
+		END AS modified_primary_flag
+	FROM Employee
+) AS t
+WHERE modified_primary_flag = 'Y'
+*/
