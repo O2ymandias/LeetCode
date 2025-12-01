@@ -174,6 +174,20 @@ GROUP BY customer_id
 HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product)
 */
 
+-- 1731. The Number of Employees Which Report to Each Employee
+/*
+SELECT
+	m.employee_id,
+	m.name,
+	COUNT(*) AS reports_count,
+	ROUND(AVG(CAST(e.age AS FLOAT)), 0) AS average_age
+FROM Employees AS e
+INNER JOIN Employees AS m
+ON m.employee_id = e.reports_to
+GROUP BY m.employee_id, m.name
+ORDER BY m.employee_id
+*/
+
 -- 1789. Primary Department for Each Employee
 /*
 SELECT
