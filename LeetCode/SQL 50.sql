@@ -219,3 +219,20 @@ SELECT
 	END AS triangle 
 FROM Triangle
 */
+
+-- 180. Consecutive Numbers
+/*
+SELECT DISTINCT num AS ConsecutiveNums
+FROM (
+	SELECT
+		*,
+		CASE
+			WHEN id - LAG(id) OVER(PARTITION BY num ORDER BY num) = 1
+			AND LAG(id) OVER(PARTITION BY num ORDER BY num) - LAG(id, 2) OVER(PARTITION BY num ORDER BY num) = 1
+			THEN 1
+			ELSE 0
+		END AS isConsecutive
+	FROM Logs
+) AS t
+WHERE isConsecutive = 1
+*/
