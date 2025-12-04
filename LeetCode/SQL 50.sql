@@ -236,3 +236,30 @@ FROM (
 ) AS t
 WHERE isConsecutive = 1
 */
+
+-- 1164. Product Price at a Given Date
+/*
+DECLARE @targetDate DATE;
+DECLARE @initialPrice INT;
+
+SET @targetDate = '2019-08-16';
+SET @initialPrice = 10;
+
+WITH CTE_lastPrices AS (
+	SELECT DISTINCT
+		product_id,
+		LAST_VALUE(new_price) OVER(
+			PARTITION BY product_id
+			ORDER BY change_date
+			ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+		) AS last_price
+	FROM Products
+	WHERE change_date <= @targetDate
+)
+SELECT DISTINCT
+	p.product_id,
+	ISNULL(lp.last_price, @initialPrice) AS price
+FROM Products AS p
+LEFT JOIN CTE_lastPrices as lp
+ON p.product_id = lp.product_id
+*/
