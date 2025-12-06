@@ -282,3 +282,28 @@ FROM (
 WHERE TotalWeight <= @weightLimit
 ORDER BY TotalWeight DESC
 */
+
+-- 1907. Count Salary Categories
+/*
+WITH CTE_CategorizedAccounts AS (
+	SELECT
+		*,
+		CASE
+			WHEN income < 20000 THEN 'Low Salary'
+			WHEN income >= 20000 AND income <= 50000 THEN 'Average Salary'
+			ELSE 'High Salary'
+		END AS category 
+	FROM Accounts
+	UNION ALL
+	SELECT NULL, NULL, 'Low Salary'
+	UNION ALL 
+	SELECT NULL, NULL, 'Average Salary'
+	UNION ALL
+	SELECT NULL, NULL, 'High Salary'
+)
+SELECT
+	category,
+	COUNT(account_id) AS accounts_count
+FROM CTE_CategorizedAccounts
+GROUP BY category
+*/
