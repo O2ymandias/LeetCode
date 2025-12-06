@@ -263,3 +263,22 @@ FROM Products AS p
 LEFT JOIN CTE_lastPrices as lp
 ON p.product_id = lp.product_id
 */
+
+-- 1204. Last Person to Fit in the Bus
+/*
+DECLARE @weightLimit INT;
+SET @weightLimit = 1000
+
+SELECT TOP(1) person_name
+FROM (
+	SELECT
+		person_name,
+		SUM(weight) OVER(
+			ORDER BY turn
+			ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+		) AS TotalWeight
+	FROM Queue
+) AS temp
+WHERE TotalWeight <= @weightLimit
+ORDER BY TotalWeight DESC
+*/
