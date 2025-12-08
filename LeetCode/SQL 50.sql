@@ -307,3 +307,20 @@ SELECT
 FROM CTE_CategorizedAccounts
 GROUP BY category
 */
+
+-- 1978. Employees Whose Manager Left the Company
+/*
+DECLARE @limitSalary INT;
+SET @limitSalary = 30000;
+
+SELECT emp.employee_id
+FROM Employees AS emp
+WHERE salary < @limitSalary
+AND emp.manager_id IS NOT NULL
+AND NOT EXISTS (
+	SELECT 1
+	FROM Employees AS checkEmp
+	WHERE emp.manager_id = checkEmp.employee_id
+)
+ORDER BY employee_id
+*/
