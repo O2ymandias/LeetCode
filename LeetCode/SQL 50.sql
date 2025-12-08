@@ -324,3 +324,15 @@ AND NOT EXISTS (
 )
 ORDER BY employee_id
 */
+
+-- 626. Exchange Seats
+/*
+SELECT
+	id,
+	CASE
+		WHEN id % 2 = 0 THEN LAG(student) OVER(ORDER BY id)
+		ELSE ISNULL(LEAD(student) OVER(ORDER BY id), student)
+	END AS student
+FROM Seat
+ORDER BY id
+*/
