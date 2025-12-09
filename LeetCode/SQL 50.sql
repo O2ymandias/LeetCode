@@ -336,3 +336,34 @@ SELECT
 FROM Seat
 ORDER BY id
 */
+
+-- 1341. Movie Rating
+/*
+WITH CTE_top_user AS (
+	SELECT TOP(1) u.name
+	FROM Users AS u
+	LEFT JOIN MovieRating AS mr
+		ON u.user_id = mr.user_id
+	GROUP BY u.name
+	ORDER BY 
+		COUNT(*) DESC,
+		name ASC
+),
+CTE_top_movie AS (
+	SELECT TOP(1) m.title
+	FROM Movies AS m
+	LEFT JOIN MovieRating AS mr
+		ON m.movie_id = mr.movie_id
+	WHERE MONTH(created_at) = 2
+	AND YEAR(created_at) = 2020
+	GROUP BY m.title
+	ORDER BY 
+		AVG(CAST(rating AS FLOAT)) DESC,
+		m.title ASC	
+)
+SELECT name AS results
+FROM CTE_top_user
+UNION ALL
+SELECT title
+FROM CTE_top_movie
+*/
