@@ -367,3 +367,43 @@ UNION ALL
 SELECT title
 FROM CTE_top_movie
 */
+
+-- 1321. Restaurant Growth
+/*
+WITH CTE_AmountPerDay AS (
+	SELECT
+		visited_on,
+		CAST(SUM(amount) AS FLOAT) AS AmountPerDay
+	FROM Customer
+	GROUP BY visited_on
+),
+CTE_Window7 AS (
+	SELECT
+		visited_on,
+
+		SUM(AmountPerDay) OVER (
+			ORDER BY visited_on
+			ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+		) AS amount,
+
+		ROUND (
+			AVG(AmountPerDay) OVER (
+				ORDER BY visited_on
+				ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+			), 2
+		) AS average_amount,
+
+		LAG(visited_on, 6) OVER(
+			ORDER BY visited_on
+		) AS Window7
+
+	FROM CTE_AmountPerDay
+)
+SELECT
+	visited_on,
+	amount,
+	average_amount
+FROM CTE_Window7
+WHERE Window7 IS NOT NULL
+ORDER BY visited_on
+*/
