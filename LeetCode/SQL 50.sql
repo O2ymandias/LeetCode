@@ -424,3 +424,43 @@ FROM CTE_friends
 GROUP BY id
 ORDER BY num DESC
 */
+
+-- 585. Investments in 2016
+/*
+SELECT ROUND (SUM(tiv_2016), 2) AS tiv_2016
+FROM Insurance 
+WHERE pid IN (
+	SELECT DISTINCT i1.pid
+	FROM Insurance AS i1
+	JOIN Insurance AS i2
+		ON i1.pid != i2.pid
+		AND i1.tiv_2015 = i2.tiv_2015
+)
+AND pid NOT IN (
+	SELECT i1.pid
+	FROM Insurance AS i1
+	JOIN Insurance AS i2
+		ON i1.pid != i2.pid
+		AND i1.lat = i2.lat
+		AND i1.lon = i2.lon
+)
+
+-- OR
+
+SELECT ROUND (SUM(tiv_2016), 2) AS tiv_2016
+FROM Insurance AS i
+WHERE tiv_2015 IN (
+	SELECT
+		tiv_2015
+	FROM Insurance
+	GROUP BY tiv_2015
+	HAVING COUNT(*) > 1
+)
+AND NOT EXISTS (
+	SELECT 1
+	FROM Insurance AS ck
+	WHERE i.pid != ck.pid
+	AND i.lat = ck.lat
+	AND i.lon = ck.lon
+)
+*/
