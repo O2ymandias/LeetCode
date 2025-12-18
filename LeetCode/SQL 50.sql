@@ -407,3 +407,20 @@ FROM CTE_Window7
 WHERE Window7 IS NOT NULL
 ORDER BY visited_on
 */
+
+-- 602. Friend Requests II: Who Has the Most Friends
+/*
+WITH CTE_friends AS (
+	SELECT requester_id AS id
+	FROM RequestAccepted
+	UNION ALL
+	SELECT accepter_id 
+	FROM RequestAccepted
+)
+SELECT TOP 1
+	id,
+	COUNT(*) AS num
+FROM CTE_friends
+GROUP BY id
+ORDER BY num DESC
+*/
