@@ -484,3 +484,29 @@ FROM Patients
 WHERE conditions LIKE '% DIAB1%'
 OR conditions LIKE 'DIAB1%'
 */
+
+-- 196. Delete Duplicate Emails
+/*
+WITH CTE_Duplicates AS (
+	SELECT 
+		id,
+		ROW_NUMBER() OVER(
+			PARTITION BY Email
+			ORDER BY id
+		) AS RN
+	FROM Person AS p
+	WHERE EXISTS (
+		SELECT 1
+		FROM Person AS ck
+		WHERE p.Id != ck.Id
+		AND p.Email = ck.Email
+	)
+),
+CTE_ShouldRemove AS (
+	SELECT id
+	FROM CTE_Duplicates
+	WHERE RN != 1
+)
+DELETE FROM Person
+WHERE Id IN (SELECT * FROM CTE_ShouldRemove)
+*/
