@@ -510,3 +510,21 @@ CTE_ShouldRemove AS (
 DELETE FROM Person
 WHERE Id IN (SELECT * FROM CTE_ShouldRemove)
 */
+
+-- 176. Second Highest Salary
+/*
+WITH CTE_SalariesRank AS 
+(
+	SELECT
+		salary,
+		DENSE_RANK() OVER(ORDER BY salary DESC) AS Rank
+	FROM Employee
+),
+CTE_SecondHighestSalary AS (
+	SELECT TOP(1) salary 
+	FROM CTE_SalariesRank
+	WHERE Rank = 2
+)
+SELECT MAX(salary) AS SecondHighestSalary 
+FROM CTE_SecondHighestSalary
+*/
