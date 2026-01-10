@@ -30,6 +30,13 @@ WHERE author_id = viewer_id
 ORDER BY author_id ASC
 */
 
+-- 1683. Invalid Tweets
+/*
+SELECT tweet_id
+FROM Tweets
+WHERE LEN(content) > 15
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
