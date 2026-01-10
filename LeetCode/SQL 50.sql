@@ -141,6 +141,15 @@ ON s.user_id = c.user_id
 GROUP BY s.user_id
 */
 
+-- 620. Not Boring Movies
+/*
+SELECT *
+FROM Cinema
+WHERE (id % 2 != 0) AND description != 'boring'
+ORDER BY rating DESC
+*/
+
+
 -- 2356. Number of Unique Subjects Taught by Each Teacher
 /*
 SELECT
