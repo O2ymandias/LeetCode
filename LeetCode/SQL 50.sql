@@ -543,3 +543,26 @@ FROM CTE_UniqueActivities
 GROUP BY sell_date
 ORDER BY sell_date
 */
+
+-- 1327. List the Products Ordered in a Period
+/*
+DECLARE 
+	@monthLimit INT,
+	@yearLimit INT,
+	@unitLimit INT;
+
+SET @monthLimit = 2;
+SET @yearLimit = 2020;
+SET @unitLimit = 100;
+
+SELECT
+	p.product_name,
+	SUM(o.unit) AS unit
+FROM Products AS p
+LEFT JOIN Orders AS o
+ON p.product_id = o.product_id
+WHERE MONTH(order_date) = @monthLimit
+AND YEAR(order_date) = @yearLimit
+GROUP BY p.product_name
+HAVING SUM(o.unit) >= @unitLimit;
+*/
