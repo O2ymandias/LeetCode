@@ -92,6 +92,17 @@ AND a2.activity_type = 'end'
 GROUP BY a1.machine_id
 */
 
+-- 577. Employee Bonus
+/*
+SELECT
+    e.name,
+    b.bonus
+FROM Employee AS e
+LEFT JOIN Bonus AS b
+ON e.empId = b.empId
+WHERE b.bonus < 1000 OR b.bonus IS NULL
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
