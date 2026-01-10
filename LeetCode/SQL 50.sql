@@ -103,6 +103,23 @@ ON e.empId = b.empId
 WHERE b.bonus < 1000 OR b.bonus IS NULL
 */
 
+-- 1280. Students and Examinations
+/*
+SELECT
+	s.student_id,
+	s.student_name,
+	sb.subject_name,
+	COUNT(ex.subject_name) AS attended_exams 
+FROM Students AS s
+CROSS JOIN Subjects AS sb
+LEFT JOIN Examinations AS ex
+ON s.student_id = ex.student_id AND sb.subject_name = ex.subject_name
+GROUP BY 	
+	s.student_id,
+	s.student_name,
+	sb.subject_name
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
