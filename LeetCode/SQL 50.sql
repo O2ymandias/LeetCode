@@ -619,6 +619,34 @@ AND NOT EXISTS (
 )
 */
 
+-- 185. Department Top Three Salaries
+/*
+WITH CTE_SalaryRank AS (
+	SELECT
+		*,
+		DENSE_RANK() OVER(
+			PARTITION BY departmentId
+			ORDER BY salary DESC
+		) AS SalaryRank
+	FROM Employee
+),
+CTE_Top3Salaries AS (
+	SELECT 
+		name,
+		salary,
+		departmentId
+	FROM CTE_SalaryRank
+	WHERE SalaryRank <= 3
+)
+SELECT
+	d.name AS Department,
+	e.name AS Employee,
+	e.salary AS Salary
+FROM CTE_Top3Salaries AS e
+LEFT JOIN Department AS d
+	ON d.id = e.departmentId
+*/
+
 -- 1667. Fix Names in a Table
 /*
 SELECT
