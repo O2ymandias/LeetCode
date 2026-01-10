@@ -120,6 +120,16 @@ GROUP BY
 	sb.subject_name
 */
 
+-- 570. Managers with at Least 5 Direct Reports
+/*
+SELECT m.name
+FROM Employee AS e
+JOIN Employee AS m
+ON m.id = e.managerId
+GROUP BY m.id, m.name
+HAVING COUNT(*) >= 5
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
