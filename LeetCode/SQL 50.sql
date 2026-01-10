@@ -1,3 +1,10 @@
+-- 1757. Recyclable and Low Fat Products
+/*
+SELECT product_id
+FROM Products
+WHERE low_fats = 'Y' AND recyclable = 'Y'
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
@@ -565,4 +572,13 @@ WHERE MONTH(order_date) = @monthLimit
 AND YEAR(order_date) = @yearLimit
 GROUP BY p.product_name
 HAVING SUM(o.unit) >= @unitLimit;
+*/
+
+-- 1517. Find Users With Valid E-Mails
+/*
+SELECT *
+FROM Users
+WHERE RIGHT(mail, 13) COLLATE Latin1_General_CS_AS = '@leetcode.com' -- validate domain
+AND LEFT(mail, 1) LIKE '[a-zA-Z]' -- validate first char
+AND LEFT(mail, LEN(mail) - 13) NOT LIKE '%[^a-zA-Z0-9_.-]%' -- exclude the special chars
 */
