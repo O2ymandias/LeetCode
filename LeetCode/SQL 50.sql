@@ -70,6 +70,14 @@ WHERE t.visit_id IS NULL
 GROUP BY v.customer_id
 */
 
+-- 197. Rising Temperature
+/*
+SELECT w2.id
+FROM Weather AS w1
+INNER JOIN Weather AS w2
+ON DATEDIFF (day, w1.recordDate, w2.recordDate) = 1 AND w2.temperature > w1.temperature
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
