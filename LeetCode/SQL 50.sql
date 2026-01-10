@@ -37,6 +37,16 @@ FROM Tweets
 WHERE LEN(content) > 15
 */
 
+-- 1378. Replace Employee ID With The Unique Identifier
+/*
+SELECT
+    empUNI.unique_id,
+    emp.name
+FROM Employees AS emp
+LEFT JOIN EmployeeUNI AS empUNI
+ON emp.id = empUNI.id
+*/
+
 -- 1934. Confirmation Rate
 /*
 SELECT
